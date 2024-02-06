@@ -1,14 +1,23 @@
 DROP TABLE IF EXISTS country;
+DROP TABLE IF EXISTS city;
 
 CREATE TABLE country (
     country_id INT GENERATED ALWAYS AS IDENTITY,
-    name VARCHAR(100) NOT NULL,
+    name VARCHAR(100) NOT NULL UNIQUE,
     capital VARCHAR(100) NOT NULL,
     population INT NOT NULL,
     languages VARCHAR(100) NOT NULL,
     fun_fact VARCHAR(255),
     map_image_url VARCHAR(255),
     PRIMARY KEY (country_id)
+);
+CREATE TABLE city(
+  City_id INT GENERATED ALWAYS AS IDENTITY,
+  country_name VARCHAR(100) NOT NULL,
+  name VARCHAR(100) NOT NULL,
+  population INT NOT NULL,
+  PRIMARY KEY (city_id),
+  FOREIGN KEY (country_name) REFERENCES country(name)
 );
 INSERT INTO country (name, capital, population, languages, fun_fact, map_image_url)
 VALUES
@@ -22,3 +31,9 @@ VALUES
   ('South Africa', 'Pretoria', 57779622, 'Afrikaans, English, Zulu, Xhosa, and others', 'South Africa has 11 official languages.', 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Flag_of_South_Africa.svg/1200px-Flag_of_South_Africa.svg.png'),
   ('Australia', 'Canberra', 24982688, 'English', 'Australia is the only country that is also a continent.', 'https://upload.wikimedia.org/wikipedia/en/thumb/8/88/Flag_of_Australia.svg/1200px-Flag_of_Australia.svg.png');
   
+INSERT INTO city (country_name, name, population)
+  VALUES
+  ('Brazil', 'Rio De Janiero', 5000000 ),
+  ('Mexico', 'Cancun', 1000000),
+  ('United States', 'Houston', 3000000),
+  ('India', 'Kolkata', 5000000);
